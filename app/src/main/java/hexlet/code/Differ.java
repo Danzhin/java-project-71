@@ -1,5 +1,9 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -8,11 +12,11 @@ import java.util.stream.Collectors;
 public class Differ {
 
     public static String generate(String filePath1, String filePath2) throws Exception {
-        String data1 = FileReader.read(filePath1);
-        String data2 = FileReader.read(filePath2);
+        String data1 = Files.readString(Paths.get(filePath1));
+        String data2 = Files.readString(Paths.get(filePath2));
 
-        Map<String, Object> json1 = JsonParser.parse(data1);
-        Map<String, Object> json2 = JsonParser.parse(data2);
+        Map<String, Object> json1 = Utils.objectMapper.readValue(data1, new TypeReference<>(){});
+        Map<String, Object> json2 = Utils.objectMapper.readValue(data2, new TypeReference<>(){});
 
         Set<String> keys1 = new TreeSet<>(json1.keySet());
         Set<String> keys2 = new TreeSet<>(json2.keySet());
