@@ -15,8 +15,8 @@ public class Differ {
         String data1 = Files.readString(Paths.get(filePath1));
         String data2 = Files.readString(Paths.get(filePath2));
 
-        Map<String, Object> json1 = Utils.objectMapper.readValue(data1, new TypeReference<>(){});
-        Map<String, Object> json2 = Utils.objectMapper.readValue(data2, new TypeReference<>(){});
+        Map<String, Object> json1 = Utils.OBJECT_MAPPER.readValue(data1, new TypeReference<>() { });
+        Map<String, Object> json2 = Utils.OBJECT_MAPPER.readValue(data2, new TypeReference<>() { });
 
         Set<String> keys1 = new TreeSet<>(json1.keySet());
         Set<String> keys2 = new TreeSet<>(json2.keySet());
