@@ -11,12 +11,20 @@ import java.util.stream.Collectors;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) throws Exception {
-        String data1 = Files.readString(Paths.get(filePath1));
-        String data2 = Files.readString(Paths.get(filePath2));
+    private static String readFile(String filePath) throws Exception {
+        return Files.readString(Paths.get(filePath));
+    }
 
-        Map<String, Object> json1 = Utils.OBJECT_MAPPER.readValue(data1, new TypeReference<>() { });
-        Map<String, Object> json2 = Utils.OBJECT_MAPPER.readValue(data2, new TypeReference<>() { });
+    private static Map<String, Object> parseData(String data) throws Exception {
+        return Utils.OBJECT_MAPPER.readValue(data, new TypeReference<>() { });
+    }
+
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        String data1 = readFile(filePath1);
+        String data2 = readFile(filePath2);
+
+        Map<String, Object> json1 = parseData(data1);
+        Map<String, Object> json2 = parseData(data2);
 
         Set<String> keys1 = new TreeSet<>(json1.keySet());
         Set<String> keys2 = new TreeSet<>(json2.keySet());
