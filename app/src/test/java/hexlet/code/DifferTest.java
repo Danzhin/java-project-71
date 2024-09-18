@@ -14,8 +14,8 @@ public class DifferTest {
 
     @Test
     public void testGenerate() throws Exception {
-        String expected = Files.readString(Paths.get(getFixturesPath("result.txt")));
-        String actual = Differ.generate(getFixturesPath("json1.json"), getFixturesPath("json2.json"));
+        String expected = Files.readString(Paths.get(getFixturesPath("R.txt")));
+        String actual = Differ.generate(getFixturesPath("A1.json"), getFixturesPath("B1.json"));
         assertEquals(expected, actual);
     }
 }
