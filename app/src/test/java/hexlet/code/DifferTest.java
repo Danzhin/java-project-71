@@ -14,12 +14,16 @@ public class DifferTest {
 
     @Test
     public void testGenerate() throws Exception {
-        String expected = Files.readString(Paths.get(getFixturesPath("R.txt")));
+        String expected1 = Files.readString(Paths.get(getFixturesPath("R1.txt")));
+        String expected2 = Files.readString(Paths.get(getFixturesPath("R2.txt")));
 
         String actual1 = Differ.generate(getFixturesPath("A1.json"), getFixturesPath("B1.json"));
-        assertEquals(expected, actual1);
+        assertEquals(expected1, actual1);
 
         String actual2 = Differ.generate(getFixturesPath("A2.yaml"), getFixturesPath("B2.yaml"));
-        assertEquals(expected, actual2);
+        assertEquals(expected1, actual2);
+
+        String actual3 = Differ.generate(getFixturesPath("A3.json"), getFixturesPath("B3.json"));
+        assertEquals(expected2, actual3);
     }
 }
