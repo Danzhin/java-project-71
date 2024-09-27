@@ -8,13 +8,17 @@ import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, Object> fileDataToMap(String fileData, String extension) throws Exception {
-        ObjectMapper objectMapper = switch (extension) {
+    public static Map<String, Object> toMap(String fileData, String extension) throws Exception {
+        ObjectMapper objectMapper = getObjectMapper(extension);
+        return objectMapper.readValue(fileData, new TypeReference<>() { });
+    }
+
+    private static ObjectMapper getObjectMapper(String extension) throws Exception {
+        return switch (extension) {
             case "json" -> new ObjectMapper();
             case "yaml", "yml" -> new ObjectMapper(new YAMLFactory());
             default -> throw new Exception();
         };
-        return objectMapper.readValue(fileData, new TypeReference<>() { });
     }
 
 }
