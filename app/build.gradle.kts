@@ -1,6 +1,7 @@
 plugins {
     application
     checkstyle
+    jacoco
 }
 
 group = "hexlet.code"
@@ -20,6 +21,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+
 }
 
 application {
