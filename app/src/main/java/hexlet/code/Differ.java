@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,8 +10,8 @@ public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
         String extension = getExtension(filePath1, filePath2);
 
-        String data1 = readFile(filePath1);
-        String data2 = readFile(filePath2);
+        String data1 = FileReader.toString(filePath1);
+        String data2 = FileReader.toString(filePath2);
 
         Map<String, Object> map1 = Parser.toMap(data1, extension);
         Map<String, Object> map2 = Parser.toMap(data2, extension);
@@ -30,14 +28,9 @@ public class Differ {
         }
     }
 
-    private static String readFile(String filePath) throws Exception {
-        return Files.readString(Paths.get(filePath));
-    }
-
     private static String getDiffer(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> keys1 = new TreeSet<>(map1.keySet());
         Set<String> keys2 = new TreeSet<>(map2.keySet());
-
         Set<String> allKeys = new TreeSet<>(keys1);
         allKeys.addAll(keys2);
 
