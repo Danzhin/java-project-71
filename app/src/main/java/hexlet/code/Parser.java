@@ -9,8 +9,7 @@ import java.util.Map;
 public class Parser {
 
     public static Map<String, Object> toMap(String fileData, String extension) throws Exception {
-        ObjectMapper objectMapper = getObjectMapper(extension);
-        return objectMapper.readValue(fileData, new TypeReference<>() { });
+        return getObjectMapper(extension).readValue(fileData, new TypeReference<>() { });
     }
 
     private static ObjectMapper getObjectMapper(String extension) throws Exception {

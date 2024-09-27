@@ -31,9 +31,7 @@ public class Differ {
     private static String getDiffer(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> keys1 = new TreeSet<>(map1.keySet());
         Set<String> keys2 = new TreeSet<>(map2.keySet());
-        Set<String> allKeys = new TreeSet<>(keys1);
-        allKeys.addAll(keys2);
-
+        Set<String> allKeys = getAllKeys(keys1, keys2);
         return allKeys.stream()
                 .map(key -> {
                     if (!keys2.contains(key)) {
@@ -47,6 +45,12 @@ public class Differ {
                     }
                 })
                 .collect(Collectors.joining("\n", "{\n", "\n}"));
+    }
+
+    private static Set<String> getAllKeys(Set<String> keys1, Set<String> keys2) {
+        Set<String> allKeys = new TreeSet<>(keys1);
+        allKeys.addAll(keys2);
+        return allKeys;
     }
 
     private static String getRemovedKey(String key, Object value) {
