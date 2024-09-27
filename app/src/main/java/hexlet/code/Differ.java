@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -33,17 +34,7 @@ public class Differ {
         Set<String> keys2 = new TreeSet<>(map2.keySet());
         Set<String> allKeys = getAllKeys(keys1, keys2);
         return allKeys.stream()
-                .map(key -> {
-                    if (!keys2.contains(key)) {
-                        return getRemovedKey(key, map1.get(key));
-                    } else if (!keys1.contains(key)) {
-                        return getAddedKey(key, map2.get(key));
-                    } else if (map1.get(key).equals(map2.get(key))) {
-                        return getUnchangedKey(key, map1.get(key));
-                    } else {
-                        return getChangedKey(key, map1.get(key), map2.get(key));
-                    }
-                })
+                .map(key -> compareKeys(key, map1, map2, keys1, keys2))
                 .collect(Collectors.joining("\n", "{\n", "\n}"));
     }
 
@@ -51,6 +42,21 @@ public class Differ {
         Set<String> allKeys = new TreeSet<>(keys1);
         allKeys.addAll(keys2);
         return allKeys;
+    }
+
+    private static String compareKeys(String key, Map<String, Object> map1, Map<String, Object> map2, Set<String> keys1, Set<String> keys2) {
+        Object value1 = map1.get(key);
+        Object value2 = map2.get(key);
+
+        if (!keys2.contains(key)) {
+            return getRemovedKey(key, value1);
+        } else if (!keys1.contains(key)) {
+            return getAddedKey(key, value2);
+        } else if (Objects.equals(value1, value2)) {
+            return getUnchangedKey(key, value1);
+        } else {
+            return getChangedKey(key, value1, value2);
+        }
     }
 
     private static String getRemovedKey(String key, Object value) {
