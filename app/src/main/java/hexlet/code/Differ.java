@@ -9,24 +9,16 @@ import java.util.stream.Collectors;
 public class Differ {
 
     public static String generate(String filePath1, String filePath2) throws Exception {
-        String extension = getExtension(filePath1, filePath2);
+        String data1 = FileReader.readFile(filePath1);
+        String data2 = FileReader.readFile(filePath2);
 
-        String data1 = FileReader.toString(filePath1);
-        String data2 = FileReader.toString(filePath2);
+        String extension1 = FileReader.getExtension(filePath1);
+        String extension2 = FileReader.getExtension(filePath2);
 
-        Map<String, Object> map1 = Parser.toMap(data1, extension);
-        Map<String, Object> map2 = Parser.toMap(data2, extension);
+        Map<String, Object> map1 = Parser.toMap(data1, extension1);
+        Map<String, Object> map2 = Parser.toMap(data2, extension2);
 
         return getDiffer(map1, map2);
-    }
-
-    private static String getExtension(String filePath1, String filePath2) throws Exception {
-        String extension = filePath1.substring(filePath1.lastIndexOf('.') + 1);
-        if (extension.equals(filePath2.substring(filePath2.lastIndexOf('.') + 1))) {
-            return extension;
-        } else {
-            throw new Exception();
-        }
     }
 
     private static String getDiffer(Map<String, Object> map1, Map<String, Object> map2) {
