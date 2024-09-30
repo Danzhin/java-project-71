@@ -7,14 +7,16 @@ import java.util.stream.Collectors;
 
 public class Plain {
 
-    public static String generate(Set<String> allKeys, Set<String> keys1, Set<String> keys2, Map<String, Object> map1, Map<String, Object> map2) {
+    public static String generate(Set<String> allKeys, Set<String> keys1, Set<String> keys2,
+                                  Map<String, Object> map1, Map<String, Object> map2) {
         return allKeys.stream()
                 .map(key -> getChange(key, keys1, keys2, map1, map2))
                 .filter(line -> !line.isEmpty())
                 .collect(Collectors.joining("\n"));
     }
 
-    private static String getChange(String key, Set<String> keys1, Set<String> keys2, Map<String, Object> map1, Map<String, Object> map2) {
+    private static String getChange(String key, Set<String> keys1, Set<String> keys2,
+                                    Map<String, Object> map1, Map<String, Object> map2) {
         Object value1 = map1.getOrDefault(key, null);
         Object value2 = map2.getOrDefault(key, null);
 

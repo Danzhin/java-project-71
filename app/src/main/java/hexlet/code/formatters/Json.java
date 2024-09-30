@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 public class Json {
 
-    public static String generate(Set<String> allKeys, Set<String> keys1, Set<String> keys2, Map<String, Object> map1, Map<String, Object> map2) throws Exception {
+    public static String generate(Set<String> allKeys, Set<String> keys1, Set<String> keys2,
+                                  Map<String, Object> map1, Map<String, Object> map2) throws Exception {
         Map<String, Object> change = allKeys.stream()
                 .map(key -> getChange(key, keys1, keys2, map1, map2))
                 .filter(Objects::nonNull)
@@ -23,7 +24,8 @@ public class Json {
         return toJson(change);
     }
 
-    private static Map.Entry<String, Object> getChange(String key, Set<String> keys1, Set<String> keys2, Map<String, Object> map1, Map<String, Object> map2) {
+    private static Map.Entry<String, Object> getChange(String key, Set<String> keys1, Set<String> keys2,
+                                                       Map<String, Object> map1, Map<String, Object> map2) {
         Object value1 = map1.get(key);
         Object value2 = map2.get(key);
 
