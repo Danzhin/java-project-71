@@ -14,13 +14,13 @@ public class DifferTest {
 
         String filePathA = FIX_PATH + "A1.json";
         String filePathB = FIX_PATH + "B1.json";
-        assertEquals(expected, Differ.generate(filePathA, filePathB));
+        assertEquals(expected, Differ.generate(filePathA, filePathB, "stylish"));
 
         filePathB = FIX_PATH + "B1.yaml";
-        assertEquals(expected, Differ.generate(filePathA, filePathB));
+        assertEquals(expected, Differ.generate(filePathA, filePathB, "stylish"));
 
         filePathA = FIX_PATH + "A1.yaml";
-        assertEquals(expected, Differ.generate(filePathA, filePathB));
+        assertEquals(expected, Differ.generate(filePathA, filePathB, "stylish"));
     }
 
 }
