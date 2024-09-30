@@ -17,6 +17,4 @@ public class Differ {
         return Formatter.getDiffer(map1, map2, format);
     }
 
-
-
 }
