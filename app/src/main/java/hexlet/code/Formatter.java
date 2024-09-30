@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 public class Formatter {
 
-    public static String getDiffer(Map<String, Object> map1, Map<String, Object> map2, String format) throws Exception {
+    public static String getChange(Map<String, Object> map1, Map<String, Object> map2, String format) throws Exception {
         Set<String> keys1 = new TreeSet<>(map1.keySet());
         Set<String> keys2 = new TreeSet<>(map2.keySet());
         Set<String> allKeys = getAllKeys(keys1, keys2);

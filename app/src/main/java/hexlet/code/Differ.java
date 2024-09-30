@@ -14,7 +14,7 @@ public class Differ {
         Map<String, Object> map1 = Parser.toMap(data1, extension1);
         Map<String, Object> map2 = Parser.toMap(data2, extension2);
 
-        return Formatter.getDiffer(map1, map2, format);
+        return Formatter.getChange(map1, map2, format);
     }
 
 }
