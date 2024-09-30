@@ -13,7 +13,7 @@ public class Formatter {
     public static String getDiffer(Map<String, Object> map1, Map<String, Object> map2, String format) throws Exception {
         Set<String> keys1 = new TreeSet<>(map1.keySet());
         Set<String> keys2 = new TreeSet<>(map2.keySet());
-        Set<String> allKeys = getAllKeys(keys1, keys1);
+        Set<String> allKeys = getAllKeys(keys1, keys2);
         return switch (format) {
             case "stylish" -> Stylish.generate(allKeys, keys1, keys2, map1, map2);
             case "plain" -> Plain.generate(allKeys, keys1, keys2, map1, map2);
