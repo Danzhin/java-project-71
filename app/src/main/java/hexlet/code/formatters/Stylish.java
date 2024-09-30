@@ -18,30 +18,14 @@ public class Stylish {
         Object value2 = map2.get(key);
 
         if (!keys2.contains(key)) {
-            return getRemovedKey(key, value1);
+            return "  - " + key + ": " + value1;
         } else if (!keys1.contains(key)) {
-            return getAddedKey(key, value2);
+            return "  + " + key + ": " + value2;
         } else if (Objects.equals(value1, value2)) {
-            return getUnchangedKey(key, value1);
+            return "    " + key + ": " + value1;
         } else {
-            return getChangedKey(key, value1, value2);
+            return "  - " + key + ": " + value1 + "\n" + "  + " + key + ": " + value2;
         }
-    }
-
-    private static String getRemovedKey(String key, Object value) {
-        return "  - " + key + ": " + value;
-    }
-
-    private static String getAddedKey(String key, Object value) {
-        return "  + " + key + ": " + value;
-    }
-
-    private static String getUnchangedKey(String key, Object value) {
-        return "    " + key + ": " + value;
-    }
-
-    private static String getChangedKey(String key, Object oldValue, Object newValue) {
-        return "  - " + key + ": " + oldValue + "\n" + "  + " + key + ": " + newValue;
     }
 
 }
