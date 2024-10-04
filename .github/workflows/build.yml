@@ -23,5 +23,4 @@ jobs:
           distribution: 'adopt'
 
       - name: Запуск сборки
-        working-directory: ./app
         run: ./gradlew build
