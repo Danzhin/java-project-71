@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Formatter {
 
-    public static String getChange(Map<String, Object> map1, Map<String, Object> map2, String format) throws Exception {
+    public static String toFormat(Map<String, Object> map1, Map<String, Object> map2, String format) throws Exception {
         return switch (format) {
             case "stylish" -> Stylish.toStylish(map1, map2);
             case "plain" -> Plain.toPlain(map1, map2);
