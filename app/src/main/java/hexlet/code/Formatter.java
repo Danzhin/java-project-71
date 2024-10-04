@@ -5,8 +5,6 @@ import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
 
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Formatter {
 
@@ -14,15 +12,9 @@ public class Formatter {
         return switch (format) {
             case "stylish" -> Stylish.toStylish(map1, map2);
             case "plain" -> Plain.toPlain(map1, map2);
-            case "json" -> Json.generate(map1, map2);
+            case "json" -> Json.toJson(map1, map2);
             default -> throw new Exception("incorrect format");
         };
-    }
-
-    private static Set<String> getAllKeys(Set<String> keys1, Set<String> keys2) {
-        Set<String> allKeys = new TreeSet<>(keys1);
-        allKeys.addAll(keys2);
-        return allKeys;
     }
 
 }

@@ -1,7 +1,6 @@
 package hexlet.code.formatters;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,20 +21,12 @@ public class Plain {
         Object value1 = map1.get(key);
         Object value2 = map2.get(key);
         String keyFormat = Key.getFormat(key, keys1, keys2, value1, value2);
-
-        if (!keys2.contains(key)) {
-            return "Property '" + key + "' was removed";
-        } else if (!keys1.contains(key)) {
-            return "Property '" + key + "' was added with value: " + getFormatedValue(value2);
-        } else if (!Objects.equals(value1, value2)) {
-            return "Property '" + key + "' was updated. From " + getFormatedValue(value1) + " to " + getFormatedValue(value2);
-        }
-        return "";
+        return getFormatedKey(key, value1, value2, keyFormat);
     }
 
     private static String getFormatedKey(String key, Object value1, Object value2, String keyFormat) {
         return switch (keyFormat) {
-            case "remote" -> getRemovedKey(key);
+            case "removed" -> getRemovedKey(key);
             case "added" -> getAddedKey(key, value2);
             case "changed" -> getChangedKey(key, value1, value2);
             case "unchanged" -> "";
