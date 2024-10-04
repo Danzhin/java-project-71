@@ -1,6 +1,7 @@
 package hexlet.code.formatters;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,27 +11,24 @@ public class Plain {
         Set<String> keys1 = Key.getKeys(map1);
         Set<String> keys2 = Key.getKeys(map2);
         Set<String> allKeys = Key.getAllKeys(keys1, keys2);
+
         return allKeys.stream()
-                .map(key -> getChange(key, keys1, keys2, map1, map2))
-                .filter(line -> !line.isEmpty())
+                .map(key -> getFormatedKey(key, keys1, keys2, map1, map2))
+                .filter(Objects::nonNull)
                 .collect(Collectors.joining("\n"));
     }
 
-    private static String getChange(String key, Set<String> keys1, Set<String> keys2,
+    private static String getFormatedKey(String key, Set<String> keys1, Set<String> keys2,
                                     Map<String, Object> map1, Map<String, Object> map2) {
         Object value1 = map1.get(key);
         Object value2 = map2.get(key);
         String keyFormat = Key.getFormat(key, keys1, keys2, value1, value2);
-        return getFormatedKey(key, value1, value2, keyFormat);
-    }
-
-    private static String getFormatedKey(String key, Object value1, Object value2, String keyFormat) {
         return switch (keyFormat) {
             case "removed" -> getRemovedKey(key);
             case "added" -> getAddedKey(key, value2);
             case "changed" -> getChangedKey(key, value1, value2);
-            case "unchanged" -> "";
-            default -> null;
+            case "unchanged" -> null;
+            default -> throw new IllegalStateException("Unexpected value: " + keyFormat);
         };
     }
 
@@ -43,7 +41,8 @@ public class Plain {
     }
 
     private static String getChangedKey(String key, Object value1, Object value2) {
-        return "Property '" + key + "' was updated. From " + getFormatedValue(value1) + " to " + getFormatedValue(value2);
+        return "Property '" + key + "' was updated. From "
+                + getFormatedValue(value1) + " to " + getFormatedValue(value2);
     }
 
     private static String getFormatedValue(Object value) {

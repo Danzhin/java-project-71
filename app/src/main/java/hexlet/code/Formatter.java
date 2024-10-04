@@ -13,7 +13,7 @@ public class Formatter {
             case "stylish" -> Stylish.toStylish(map1, map2);
             case "plain" -> Plain.toPlain(map1, map2);
             case "json" -> Json.toJson(map1, map2);
-            default -> throw new Exception("incorrect format");
+            default -> throw new IllegalStateException("Unexpected value: " + format);
         };
     }
 
