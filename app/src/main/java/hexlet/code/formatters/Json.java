@@ -17,7 +17,7 @@ public class Json {
         Set<String> keys2 = Key.getKeys(map2);
         Set<String> allKeys = Key.getAllKeys(keys1, keys2);
 
-        Map<String, Object> change = allKeys.stream()
+        Map<String, Object> differ = allKeys.stream()
                 .map(key -> getFormatedKey(key, keys1, keys2, map1, map2))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(
@@ -28,7 +28,7 @@ public class Json {
 
         return OBJECT_MAPPER.findAndRegisterModules()
                 .writerWithDefaultPrettyPrinter()
-                .writeValueAsString(change);
+                .writeValueAsString(differ);
     }
 
     private static Map.Entry<String, Object> getFormatedKey(String key, Set<String> keys1, Set<String> keys2,
