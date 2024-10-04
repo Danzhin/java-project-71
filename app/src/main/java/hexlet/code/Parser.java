@@ -16,7 +16,7 @@ public class Parser {
         return switch (extension) {
             case "json" -> new ObjectMapper();
             case "yaml", "yml" -> new ObjectMapper(new YAMLFactory());
-            default -> throw new Exception();
+            default -> throw new Exception("incorrect extension");
         };
     }
 
