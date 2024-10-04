@@ -10,7 +10,6 @@ public class FileReader {
         return filePath.substring(filePath.lastIndexOf('.') + 1);
     }
 
-
     public static String readFile(String filePath) throws IOException {
         return Files.readString(Paths.get(filePath));
     }
