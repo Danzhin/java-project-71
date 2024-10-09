@@ -6,6 +6,7 @@ import hexlet.code.DifferKey;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Json {
@@ -14,7 +15,7 @@ public class Json {
 
     public static String toJson(Map<String, DifferKey> differ) throws Exception {
         Map<String, Object> formattedMap = differ.entrySet().stream()
-                .filter(entry -> entry.getValue() != null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> formatDifferKey(entry.getValue()),
@@ -27,8 +28,14 @@ public class Json {
     private static Map<String, Object> formatDifferKey(DifferKey differKey) {
         Map<String, Object> formattedKey = new LinkedHashMap<>();
         formattedKey.put("status", differKey.status());
-        formattedKey.put("oldValue", differKey.oldValue());
-        formattedKey.put("newValue", differKey.newValue());
+        switch (differKey.status()) {
+            case "removed" -> formattedKey.put("value", differKey.oldValue());
+            case "added", "unchanged" -> formattedKey.put("value", differKey.newValue());
+            default -> {
+                formattedKey.put("oldValue", differKey.oldValue());
+                formattedKey.put("newValue", differKey.newValue());
+            }
+        }
         return formattedKey;
     }
 
