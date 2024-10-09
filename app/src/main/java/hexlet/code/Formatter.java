@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class Formatter {
 
-    public static String toFormat(Map<String, Object> map1, Map<String, Object> map2, String format) throws Exception {
+    public static String toFormat(Map<String, DifferKey> differ, String format) throws Exception {
         return switch (format) {
-            case "stylish" -> Stylish.toStylish(map1, map2);
-            case "plain" -> Plain.toPlain(map1, map2);
-            case "json" -> Json.toJson(map1, map2);
+            case "stylish" -> Stylish.toStylish(differ);
+            case "plain" -> Plain.toPlain(differ);
+            case "json" -> Json.toJson(differ);
             default -> throw new IllegalStateException("Unexpected value: " + format);
         };
     }
