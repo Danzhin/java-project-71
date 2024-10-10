@@ -8,27 +8,49 @@ public class DifferTest {
 
     private static final String FIX_PATH = "src/test/resources/fixtures/";
 
+    private static String expected;
+    private static String actual;
+
     @Test
-    public void testGenerate() throws Exception {
-        String expected1 = FileReader.readFile(FIX_PATH + "E1.txt");
-        String expected2 = FileReader.readFile(FIX_PATH + "E2.txt");
-        String expected3 = FileReader.readFile(FIX_PATH + "E3.txt");
+    public void testGenerateJsonStylish() throws Exception {
+        expected = FileReader.readFile(FIX_PATH + "E1.txt");
+        actual =  Differ.generate(FIX_PATH + "A1.json", FIX_PATH + "B1.json", "stylish");
+        assertEquals(expected, actual);
+    }
 
-        String filePathA = FIX_PATH + "A1.json";
-        String filePathB = FIX_PATH + "B1.json";
-        assertEquals(expected1, Differ.generate(filePathA, filePathB, "stylish"));
-        assertEquals(expected2, Differ.generate(filePathA, filePathB, "plain"));
-        assertEquals(expected3, Differ.generate(filePathA, filePathB, "json"));
+    @Test
+    public void testGenerateYamlStylish() throws Exception {
+        expected = FileReader.readFile(FIX_PATH + "E1.txt");
+        actual =  Differ.generate(FIX_PATH + "A1.yaml", FIX_PATH + "B1.yaml", "stylish");
+        assertEquals(expected, actual);
+    }
 
-        filePathB = FIX_PATH + "B1.yaml";
-        assertEquals(expected1, Differ.generate(filePathA, filePathB, "stylish"));
-        assertEquals(expected2, Differ.generate(filePathA, filePathB, "plain"));
-        assertEquals(expected3, Differ.generate(filePathA, filePathB, "json"));
+    @Test
+    public void testGenerateJsonPlain() throws Exception {
+        expected = FileReader.readFile(FIX_PATH + "E2.txt");
+        actual =  Differ.generate(FIX_PATH + "A1.json", FIX_PATH + "B1.json", "plain");
+        assertEquals(expected, actual);
+    }
 
-        filePathA = FIX_PATH + "A1.yaml";
-        assertEquals(expected1, Differ.generate(filePathA, filePathB, "stylish"));
-        assertEquals(expected2, Differ.generate(filePathA, filePathB, "plain"));
-        assertEquals(expected3, Differ.generate(filePathA, filePathB, "json"));
+    @Test
+    public void testGenerateYamlPlain() throws Exception {
+        expected = FileReader.readFile(FIX_PATH + "E2.txt");
+        actual =  Differ.generate(FIX_PATH + "A1.yaml", FIX_PATH + "B1.yaml", "plain");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateJsonJson() throws Exception {
+        expected = FileReader.readFile(FIX_PATH + "E3.txt");
+        actual =  Differ.generate(FIX_PATH + "A1.json", FIX_PATH + "B1.json", "json");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateYamlJson() throws Exception {
+        expected = FileReader.readFile(FIX_PATH + "E3.txt");
+        actual =  Differ.generate(FIX_PATH + "A1.yaml", FIX_PATH + "B1.yaml", "json");
+        assertEquals(expected, actual);
     }
 
 }
