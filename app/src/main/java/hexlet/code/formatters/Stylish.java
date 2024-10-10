@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class Stylish {
 
-    public static String toStylish(Map<String, DifferKey> differMap) {
-        return differMap.entrySet().stream()
+    public static String toStylish(Map<String, DifferKey> differ) {
+        return differ.entrySet().stream()
                 .map(entry -> formatDifferKey(entry.getKey(), entry.getValue()))
                 .collect(Collectors.joining("\n", "{\n", "\n}"));
     }
@@ -18,7 +18,8 @@ public class Stylish {
             case "removed" -> getRemovedKey(key, differKey.oldValue());
             case "added" -> getAddedKey(key, differKey.newValue());
             case "unchanged" -> getUnchangedKey(key, differKey.oldValue());
-            default -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
+            case "changed" -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
+            default -> throw new IllegalStateException("Unexpected value: " + differKey.status());
         };
     }
 
