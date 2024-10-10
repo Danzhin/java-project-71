@@ -37,7 +37,7 @@ public class Json {
                 result.put("newValue", differKey.newValue());
             }
             case "added" -> result.put("value", differKey.newValue());
-            case "removed", "unchanged" -> result.put("value", differKey.oldValue());
+            default -> result.put("value", differKey.oldValue());
         }
         return result;
     }
