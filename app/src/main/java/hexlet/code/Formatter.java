@@ -10,9 +10,9 @@ public class Formatter {
 
     public static String toFormat(Map<String, DifferKey> differ, String format) throws Exception {
         return switch (format) {
-            case "stylish" -> Stylish.toStylish(differ);
-            case "plain" -> Plain.toPlain(differ);
-            case "json" -> Json.toJson(differ);
+            case "stylish" -> Stylish.toString(differ);
+            case "plain" -> Plain.toString(differ);
+            case "json" -> Json.toString(differ);
             default -> throw new IllegalStateException("Unexpected value: " + format);
         };
     }

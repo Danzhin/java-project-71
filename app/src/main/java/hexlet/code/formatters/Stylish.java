@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 
 public class Stylish {
 
-    public static String toStylish(Map<String, DifferKey> differ) {
+    public static String toString(Map<String, DifferKey> differ) {
         return differ.entrySet().stream()
-                .map(entry -> formatDifferKey(entry.getKey(), entry.getValue()))
+                .map(entry -> getFormatedDifferKey(entry.getKey(), entry.getValue()))
                 .collect(Collectors.joining("\n", "{\n", "\n}"));
     }
 
-    private static String formatDifferKey(String key, DifferKey differKey) {
+    private static String getFormatedDifferKey(String key, DifferKey differKey) {
         return switch (differKey.status()) {
             case "removed" -> getRemovedKey(key, differKey.oldValue());
             case "added" -> getAddedKey(key, differKey.newValue());

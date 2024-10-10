@@ -8,19 +8,20 @@ import java.util.stream.Collectors;
 
 public class Plain {
 
-    public static String toPlain(Map<String, DifferKey> differ) {
+    public static String toString(Map<String, DifferKey> differ) {
         return differ.entrySet().stream()
-                .map(entry -> formatDifferKey(entry.getKey(), entry.getValue()))
+                .map(entry -> getFormatedDifferKey(entry.getKey(), entry.getValue()))
                 .filter(Objects::nonNull)
                 .collect(Collectors.joining("\n"));
     }
 
-    private static String formatDifferKey(String key, DifferKey differKey) {
+    private static String getFormatedDifferKey(String key, DifferKey differKey) {
         return switch (differKey.status()) {
             case "removed" -> getRemovedKey(key);
             case "added" -> getAddedKey(key, differKey.newValue());
             case "unchanged" -> null;
-            default -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
+            case "changed" -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
+            default -> throw new IllegalStateException("Unexpected value: " + differKey.status());
         };
     }
 
