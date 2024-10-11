@@ -19,9 +19,8 @@ public class Plain {
         return switch (differKey.status()) {
             case "removed" -> getRemovedKey(key);
             case "added" -> getAddedKey(key, differKey.newValue());
-            case "unchanged" -> null;
             case "changed" -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
-            default -> throw new IllegalStateException("Unexpected value: " + differKey.status());
+            default -> null;
         };
     }
 

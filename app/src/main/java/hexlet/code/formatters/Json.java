@@ -32,11 +32,17 @@ public class Json {
 
     private static Map<String, Object> getFormatedDifferKey(DifferKey differKey) {
         return switch (differKey.status()) {
-            case "added" -> getAddedKey(differKey);
-            case "removed", "unchanged" -> getRemovedOrUnchangedKey(differKey);
+            case "removed" -> getRemovedKey(differKey);
             case "changed" -> getChangedKey(differKey);
-            default -> throw new IllegalStateException("Unexpected value: " + differKey.status());
+            default -> getAddedOrUnchangedKey(differKey);
         };
+    }
+
+    private static Map<String, Object> getRemovedKey(DifferKey differKey) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("status", differKey.status());
+        result.put("value", differKey.oldValue());
+        return result;
     }
 
     private static Map<String, Object> getChangedKey(DifferKey differKey) {
@@ -47,17 +53,10 @@ public class Json {
         return result;
     }
 
-    private static Map<String, Object> getAddedKey(DifferKey differKey) {
+    private static Map<String, Object> getAddedOrUnchangedKey(DifferKey differKey) {
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("status", differKey.status());
         result.put("value", differKey.newValue());
-        return result;
-    }
-
-    private static Map<String, Object> getRemovedOrUnchangedKey(DifferKey differKey) {
-        Map<String, Object> result = new LinkedHashMap<>();
-        result.put("status", differKey.status());
-        result.put("value", differKey.oldValue());
         return result;
     }
 

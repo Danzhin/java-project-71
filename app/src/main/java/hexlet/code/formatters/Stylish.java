@@ -17,9 +17,8 @@ public class Stylish {
         return switch (differKey.status()) {
             case "removed" -> getRemovedKey(key, differKey.oldValue());
             case "added" -> getAddedKey(key, differKey.newValue());
-            case "unchanged" -> getUnchangedKey(key, differKey.oldValue());
             case "changed" -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
-            default -> throw new IllegalStateException("Unexpected value: " + differKey.status());
+            default -> getUnchangedKey(key, differKey.oldValue());
         };
     }
 
@@ -31,11 +30,12 @@ public class Stylish {
         return "  + " + key + ": " + newValue;
     }
 
+    private static String getChangedKey(String key, Object oldValue, Object newValue) {
+        return "  - " + key + ": " + oldValue + "\n" + "  + " + key + ": " + newValue;
+    }
+
     private static String getUnchangedKey(String key, Object value) {
         return "    " + key + ": " + value;
     }
 
-    private static String getChangedKey(String key, Object oldValue, Object newValue) {
-        return "  - " + key + ": " + oldValue + "\n" + "  + " + key + ": " + newValue;
-    }
 }
