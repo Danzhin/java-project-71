@@ -25,7 +25,7 @@ public class Json {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> getFormatedDifferKey(entry.getValue()),
-                        (existing, _) -> existing,
+                        (existing, replacement) -> existing,
                         LinkedHashMap::new
                 ));
     }
