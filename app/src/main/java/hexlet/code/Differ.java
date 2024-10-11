@@ -30,7 +30,7 @@ public class Differ {
         return allKeys.stream()
                 .collect(Collectors.toMap(
                         key -> key,
-                        key -> Comparator.getDifferKey(key, keys1, keys2, map1, map2),
+                        key -> DifferKey.getDifferKey(key, keys1, keys2, map1, map2),
                         (existing, replacement) -> existing,
                         LinkedHashMap::new
                 ));
