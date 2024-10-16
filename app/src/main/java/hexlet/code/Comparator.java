@@ -21,11 +21,11 @@ public class Comparator {
                 ));
     }
 
-    public static Set<String> getSetOfKeys(Map<String, Object> map) {
+    private static Set<String> getSetOfKeys(Map<String, Object> map) {
         return new TreeSet<>(map.keySet());
     }
 
-    public static Set<String> getSetOfKeys(Set<String> keys1, Set<String> keys2) {
+    private static Set<String> getSetOfKeys(Set<String> keys1, Set<String> keys2) {
         Set<String> allKeys = new TreeSet<>(keys1);
         allKeys.addAll(keys2);
         return allKeys;

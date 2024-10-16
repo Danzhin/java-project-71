@@ -15,7 +15,7 @@ public class Parser {
         return objectMapper.readValue(fileData, new TypeReference<>() { });
     }
 
-    public static String getExtension(String filePath) {
+    private static String getExtension(String filePath) {
         return filePath.substring(filePath.lastIndexOf('.') + 1);
     }
 
