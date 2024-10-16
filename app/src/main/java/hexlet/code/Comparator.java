@@ -11,7 +11,7 @@ public class Comparator {
     public static Map<String, DifferKey> getDiffer(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> setOfKeys1 = getSetOfKeys(map1);
         Set<String> setOfKeys2 = getSetOfKeys(map2);
-        Set<String> setOfAllKeys = getSetOfKeys(setOfKeys1, setOfKeys2);
+        Set<String> setOfAllKeys = getSetOfAllKeys(setOfKeys1, setOfKeys2);
         return setOfAllKeys.stream()
                 .collect(Collectors.toMap(
                         key -> key,
@@ -25,7 +25,7 @@ public class Comparator {
         return new TreeSet<>(map.keySet());
     }
 
-    private static Set<String> getSetOfKeys(Set<String> keys1, Set<String> keys2) {
+    private static Set<String> getSetOfAllKeys(Set<String> keys1, Set<String> keys2) {
         Set<String> allKeys = new TreeSet<>(keys1);
         allKeys.addAll(keys2);
         return allKeys;
