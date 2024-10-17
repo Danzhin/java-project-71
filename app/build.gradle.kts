@@ -7,6 +7,10 @@ plugins {
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
 
+application {
+    mainClass.set("hexlet.code.App")
+}
+
 repositories {
     mavenCentral()
 }
@@ -21,10 +25,6 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
-
 }
 
-application {
-    mainClass.set("hexlet.code.App")
-}
+tasks.jacocoTestReport { reports { xml.required.set(true) } }

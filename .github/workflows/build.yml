@@ -1,10 +1,8 @@
-name: Build and Test Coverage
+name: Java CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  - push
+  - pull_request
 
 jobs:
   build:
@@ -12,26 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-java@v4
         with:
+          java-version: '22'
           distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
-          cache-dependency-path: |
-            sub-project/*.gradle*
-            sub-project/**/gradle-wrapper.properties
-
-      - run: ./gradlew build jacocoTestReport --no-daemon
-
-      - name: Download Code Climate Test Reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-
-      - name: Upload coverage to Code Climate
-        run: |
-          ./cc-test-reporter format-coverage app/build/reports/jacoco/test/jacocoTestReport.xml
-          ./cc-test-reporter upload-coverage
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.7
+      - run: ./gradlew build
