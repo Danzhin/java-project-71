@@ -9,18 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 22
+
       - name: Build with Gradle
         run: ./gradlew build
-        working-directory: ./app  # Установка рабочей директории
+        working-directory: ./app
+
       - name: Publish code coverage
         run: ./gradlew jacocoTestReport
-        working-directory: ./app  # Установка рабочей директории
+        working-directory: ./app
+
       - name: Upload Jacoco coverage to CodeClimate
         uses: paambaati/codeclimate-action@v9.0.0
         env:
