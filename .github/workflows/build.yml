@@ -25,4 +25,4 @@ jobs:
 
       - name: Build with Gradle
         working-directory: ./app
-        run: ./gradlew build
+        run: ./gradlew build jacocoTestReport
