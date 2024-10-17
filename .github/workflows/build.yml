@@ -16,19 +16,18 @@ jobs:
           distribution: 'temurin'
           java-version: 22
       - name: Build with Gradle
+        run: ./gradlew build
         working-directory: ./app  # Установка рабочей директории
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
       - name: Generate Jacoco report
-        working-directory: ./app  # Установка рабочей директории
         run: ./gradlew jacocoTestReport
-      - name: Publish code coverage
         working-directory: ./app  # Установка рабочей директории
+      - name: Publish code coverage
+        run: ./gradlew jacocoTestReport
+        working-directory: ./app  # Установка рабочей директории
+      - name: Upload Jacoco coverage to CodeClimate
         uses: paambaati/codeclimate-action@v9.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: ${{github.workspace}}/app/src/main/java
         with:
-          coverageCommand: ./gradlew jacocoTestReport
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
