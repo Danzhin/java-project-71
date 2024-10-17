@@ -18,9 +18,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
         working-directory: ./app  # Установка рабочей директории
-      - name: Generate Jacoco report
-        run: ./gradlew jacocoTestReport
-        working-directory: ./app  # Установка рабочей директории
       - name: Publish code coverage
         run: ./gradlew jacocoTestReport
         working-directory: ./app  # Установка рабочей директории
