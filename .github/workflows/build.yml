@@ -1,4 +1,4 @@
-name: Java CI
+name: Build
 
 on:
   - push
@@ -15,7 +15,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 22
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
       - name: Build with Gradle
-        run: ./gradlew build
+        uses: gradle/gradle-build-action@v4
+        with:
+          arguments: build
+          build-root-directory: app
