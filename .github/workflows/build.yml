@@ -10,16 +10,19 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 22
+
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: app
+
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v9.0.0
         env:
