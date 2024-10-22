@@ -4,11 +4,12 @@ import hexlet.code.formatters.Json;
 import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
 
+import java.util.List;
 import java.util.Map;
 
 public class Formatter {
 
-    public static String getDifferInFormat(Map<String, DifferKey> differ, String format) throws Exception {
+    public static String getDifferInFormat(List<Map<String, Object>> differ, String format) throws Exception {
         return switch (format) {
             case "stylish" -> Stylish.toString(differ);
             case "plain" -> Plain.toString(differ);

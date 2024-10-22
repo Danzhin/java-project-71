@@ -1,41 +1,28 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DifferKey;
-
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Stylish {
 
-    public static String toString(Map<String, DifferKey> differ) {
-        return differ.entrySet().stream()
-                .map(entry -> getFormatedDifferKey(entry.getKey(), entry.getValue()))
+    public static String toString(List<Map<String, Object>> differ) {
+        return differ.stream()
+                .map(Stylish::formatKeyData)
                 .collect(Collectors.joining("\n", "{\n", "\n}"));
     }
 
-    private static String getFormatedDifferKey(String key, DifferKey differKey) {
-        return switch (differKey.status()) {
-            case "removed" -> getRemovedKey(key, differKey.oldValue());
-            case "added" -> getAddedKey(key, differKey.newValue());
-            case "changed" -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
-            default -> getUnchangedKey(key, differKey.oldValue());
+    private static String formatKeyData(Map<String, Object> keyData) {
+        String key = (String) keyData.get("key");
+        String status = (String) keyData.get("status");
+        Object value1 = keyData.get("value1");
+        Object value2 = keyData.get("value2");
+        return switch (status) {
+            case "removed" -> "  - " + key + ": " + value1;
+            case "added" -> "  + " + key + ": " + value2;
+            case "changed" -> "  - " + key + ": " + value1 + "\n" + "  + " + key + ": " + value2;
+            default -> "    " + key + ": " + value1;
         };
-    }
-
-    private static String getRemovedKey(String key, Object oldValue) {
-        return "  - " + key + ": " + oldValue;
-    }
-
-    private static String getAddedKey(String key, Object newValue) {
-        return "  + " + key + ": " + newValue;
-    }
-
-    private static String getChangedKey(String key, Object oldValue, Object newValue) {
-        return "  - " + key + ": " + oldValue + "\n" + "  + " + key + ": " + newValue;
-    }
-
-    private static String getUnchangedKey(String key, Object value) {
-        return "    " + key + ": " + value;
     }
 
 }

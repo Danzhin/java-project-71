@@ -1,40 +1,31 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DifferKey;
-
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Plain {
 
-    public static String toString(Map<String, DifferKey> differ) {
-        return differ.entrySet().stream()
-                .map(entry -> getFormatedDifferKey(entry.getKey(), entry.getValue()))
+    public static String toString(List<Map<String, Object>> differ) {
+        return differ.stream()
+                .map(Plain::formatKeyData)
                 .filter(Objects::nonNull)
                 .collect(Collectors.joining("\n"));
     }
 
-    private static String getFormatedDifferKey(String key, DifferKey differKey) {
-        return switch (differKey.status()) {
-            case "removed" -> getRemovedKey(key);
-            case "added" -> getAddedKey(key, differKey.newValue());
-            case "changed" -> getChangedKey(key, differKey.oldValue(), differKey.newValue());
+    private static String formatKeyData(Map<String, Object> keyData) {
+        String key = (String) keyData.get("key");
+        String status = (String) keyData.get("status");
+        Object value1 = keyData.get("value1");
+        Object value2 = keyData.get("value2");
+        return switch (status) {
+            case "removed" -> "Property '" + key + "' was removed";
+            case "added" -> "Property '" + key + "' was added with value: " + getFormattedValue(value2);
+            case "changed" -> "Property '" + key + "' was updated. From "
+                    + getFormattedValue(value1) + " to " + getFormattedValue(value2);
             default -> null;
         };
-    }
-
-    private static String getRemovedKey(String key) {
-        return "Property '" + key + "' was removed";
-    }
-
-    private static String getAddedKey(String key, Object newValue) {
-        return "Property '" + key + "' was added with value: " + getFormattedValue(newValue);
-    }
-
-    private static String getChangedKey(String key, Object oldValue, Object newValue) {
-        return "Property '" + key + "' was updated. From "
-                + getFormattedValue(oldValue) + " to " + getFormattedValue(newValue);
     }
 
     private static String getFormattedValue(Object value) {
