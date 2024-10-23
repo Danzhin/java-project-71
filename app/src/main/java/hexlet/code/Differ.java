@@ -7,6 +7,12 @@ import java.util.Map;
 
 public class Differ {
 
+    private static final String DEFAULT_FORMAT = "stylish";
+
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        return generate(filePath1, filePath2, DEFAULT_FORMAT);
+    }
+
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
         String fileData1 = readFile(filePath1);
         String fileData2 = readFile(filePath2);
@@ -22,7 +28,7 @@ public class Differ {
         return Formatter.getDifferInFormat(differ, format);
     }
 
-    public static String readFile(String filePath) throws Exception {
+    private static String readFile(String filePath) throws Exception {
         return Files.readString(Paths.get(filePath));
     }
 
